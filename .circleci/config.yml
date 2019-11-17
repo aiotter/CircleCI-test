@@ -12,6 +12,7 @@ jobs:
           name: Check title and summary field
           command: |
             files=$(git diff --name-only --diff-filter=ACMR origin/master..origin/${CIRCLE_BRANCH} -- '*.md' | grep -P "/(${TARGET_DIRS}/)")
+            [ -z $files ] && exit 0
             for file in files; do
               if [ -z $(cat file | grep -oPz '\-{3}[\s\S]+?title:[\s\S]+?\-{3}') ] || [ -z $(cat file | grep -oPz '\-{3}[\s\S]+?title:[\s\S]+?\-{3}') ] ; then
                 echo 'Error: Either title or summary field is not satisfied!'
