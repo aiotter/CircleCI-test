@@ -14,7 +14,7 @@ jobs:
             files=$(git diff --name-only --diff-filter=ACMR origin/master..HEAD -- '*.md' | grep -P "(^|/)(${TARGET_DIRS})/")
             [ -z "$files" ] && exit 0
             for file in $files ; do
-              if [ -z "$(cat "$file" | grep -oPz '\-{3}[\s\S]+?title:[\s\S]+?\-{3}')" ] || [ -z "$(cat "$file" | grep -oPz '\-{3}[\s\S]+?title:[\s\S]+?\-{3}')" ] ; then
+              if [ -z $(cat "$file" | grep -oPz '\-{3}[\s\S]+?title:[\s\S]+?\-{3}') ] || [ -z $(cat "$file" | grep -oPz '\-{3}[\s\S]+?title:[\s\S]+?\-{3}') ] ; then
                 echo 'Error: Either title or summary field is not satisfied!'
                 exit 1
               fi
