@@ -9,6 +9,7 @@ jobs:
       - checkout
       - run:
           name: Check title and summary field
+          shell: /bin/bash
           command: |
             files=$(git diff --name-only --diff-filter=ACMR origin/master..HEAD -- '*.md' | grep -P "(^|/)(${TARGET_DIRS})/")
             [ -z "$files" ] && exit 0
