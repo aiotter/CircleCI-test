@@ -1,6 +1,6 @@
-virsion: 2.1
+version: 2.1
 jobs:
-  build:
+  frontmatter:
     docker:
       - image: buildpack-deps:trusty
     environment:
@@ -18,4 +18,21 @@ jobs:
                 exit 1
               fi
             done
+  hugo:
+    docker:
+      - image: cibuilds/hugo:latest
+    steps:
+      - checkout
+      - run:
+          name: Check duplicated URL
+          command: |
+            [ -z "$(hugo -DEF --path-warnings --renderToMemory | grep -P 'WARN.*Duplicate target paths')" ]
+workflows:
+  version: 2
+  check-requirements:
+    jobs:
+      - frontmatter
+      - hugo
+
+
 
