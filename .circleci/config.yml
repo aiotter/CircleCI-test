@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  frontmatter:
+  frontmatter-violation:
     docker:
       - image: buildpack-deps:trusty
     environment:
@@ -18,7 +18,7 @@ jobs:
                 exit 1
               fi
             done
-  hugo:
+  duplicate-url:
     docker:
       - image: cibuilds/hugo:latest
     steps:
@@ -29,10 +29,10 @@ jobs:
             [ -z "$(hugo -DEF --path-warnings --renderToMemory | grep -P 'WARN.*Duplicate target paths')" ]
 workflows:
   version: 2
-  check-requirements:
+  requirements:
     jobs:
-      - frontmatter
-      - hugo
-
-
+      - frontmatter-violation
+  site-validity:
+    jobs:
+      - duplicate-url
 
