@@ -49,5 +49,5 @@ jobs:
           shell: /bin/bash
           when: always
           command: |
-            hugo -DEF --path-warnings --renderToMemory | ! grep -P 'WARN.*Duplicate target paths')"
+            ! hugo -DEF --path-warnings --renderToMemory | grep -P 'WARN.*Duplicate target paths'
 
